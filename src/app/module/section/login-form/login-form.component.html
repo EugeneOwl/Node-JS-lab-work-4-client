@@ -1,0 +1,31 @@
+<div class="login-form-wrapper">
+  <mat-card class="login-form-content">
+    <h1 class="mat-headline form-header">Login</h1>
+
+    <div>
+      <div *ngIf="errorMessage" class="field-invalid">
+        {{ errorMessage }}
+      </div>
+
+      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
+
+        <mat-form-field>
+          <input matInput placeholder="login" type="text" name="username"
+                 [(ngModel)]="model.username" #username="ngModel" required/>
+          <mat-error *ngIf="f.submitted && !username.valid">Username is required</mat-error>
+        </mat-form-field>
+        <div class="field-invalid-placeholder" *ngIf="!username.invalid"></div>
+
+        <mat-form-field>
+          <input matInput placeholder="password" type="password" name="password"
+                 [(ngModel)]="model.password" #password="ngModel" required/>
+          <mat-error *ngIf="f.submitted && !password.valid">Password is required</mat-error>
+        </mat-form-field>
+        <div class="field-invalid-placeholder" *ngIf="!password.invalid"></div>
+
+        <button mat-raised-button mat-button color="accent">Login</button>
+
+      </form>
+    </div>
+  </mat-card>
+</div>

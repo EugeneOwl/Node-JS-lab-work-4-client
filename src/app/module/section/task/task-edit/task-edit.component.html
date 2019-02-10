@@ -1,0 +1,32 @@
+<div class="task-edit-wrapper">
+  <mat-card>
+    <h2>Add task</h2>
+
+    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+
+      <div class="task-name-input">
+        <mat-form-field>
+          <input matInput placeholder="Name" [formControl]="nameFormControl">
+        </mat-form-field>
+      </div>
+
+      <div class="task-status-input">
+        <mat-form-field>
+          <mat-select placeholder="Status" [formControl]="statusFormControl">
+            <mat-option *ngFor="let status of statuses" [value]="status">
+              {{status}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="task-status-input">
+        <input placeholder="File" type="file" name="file" (change)="onFileSelect($event)">
+      </div>
+
+      <div class="submit-button">
+        <button mat-button mat-raised-button color="primary">Submit</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

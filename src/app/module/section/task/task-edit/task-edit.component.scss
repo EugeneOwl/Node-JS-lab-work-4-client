@@ -1,0 +1,31 @@
+.task-edit-wrapper {
+  width: 400px;
+  margin: auto;
+  padding-top: 50px;
+
+  mat-card {
+    padding-left: 100px;
+  }
+
+  mat-form-field {
+    padding-top: 20px;
+  }
+
+  .task-name-input {
+    mat-form-field {
+      margin: auto;
+    }
+  }
+
+  .task-status-input {
+
+  }
+
+  .task-status-input {
+
+  }
+
+  .submit-button {
+    padding-top: 20px;
+  }
+}

@@ -1,0 +1,14 @@
+.login-form-wrapper {
+  padding: 10%;
+  width: 25%;
+  margin: auto;
+
+  .login-form-content {
+    padding: 2% 25%;
+
+    .field-invalid {
+      padding: 5px 0;
+      color: darkred;
+    }
+  }
+}
