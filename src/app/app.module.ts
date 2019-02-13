@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SecurityService } from './service/auth/security.service';
 import { AuthService } from './service/auth/auth.service';
-import { CustomHttpInterceptor } from './service/cookie-http-interceptor.service';
+import { BaseHttpService } from './service/common/base-http.service';
 
 @NgModule({
   declarations: [
@@ -21,10 +21,10 @@ import { CustomHttpInterceptor } from './service/cookie-http-interceptor.service
     BrowserAnimationsModule
   ],
   providers: [
+    BaseHttpService,
     TaskService,
     AuthService,
-    SecurityService,
-    CustomHttpInterceptor
+    SecurityService
   ],
   bootstrap: [ AppComponent ]
 })

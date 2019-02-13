@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { AuthConfigConsts, AuthHttp } from 'angular2-jwt';
+import { AuthConfigConsts } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/toPromise';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../../model/auth.model';
+import { BaseHttpService } from '../common/base-http.service';
 
 
 @Injectable()
-export class AuthService {
+export class AuthService extends BaseHttpService {
   readonly url = environment.serverUrl + '/auth';
   readonly loginUrl = this.url + '/login';
 
   constructor(
-    private http: HttpClient,
-    private router: Router
+    private router: Router,
+    http: HttpClient
   ) {
+    super(http);
   }
 
   login(loginRequest: LoginRequest) {
-    return this.http.post(this.loginUrl, loginRequest);
+    return this.post(this.loginUrl, loginRequest);
   }
 
   logout() {
@@ -32,7 +34,7 @@ export class AuthService {
 
   getMe() {
 
-    return this.http.get(`${environment.serverUrl}auth/me`);
+    // return this.http.get(`${environment.serverUrl}auth/me`);
   }
 
 }
