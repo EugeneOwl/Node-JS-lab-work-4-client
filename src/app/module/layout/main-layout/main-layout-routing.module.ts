@@ -1,10 +1,12 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MainLayoutComponent } from './main-layout.component';
+import { MainLayoutGuard } from './main-layout.guard';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [MainLayoutGuard],
     component: MainLayoutComponent,
     children: [
       {

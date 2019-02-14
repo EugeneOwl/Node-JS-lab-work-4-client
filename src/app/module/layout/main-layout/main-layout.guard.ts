@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { SecurityService } from '../../../service/auth/security.service';
-import { Observable } from 'rxjs';
 
 @Injectable()
-export class LoginLayoutGuard implements CanActivate {
+export class MainLayoutGuard implements CanActivate {
 
   constructor(
     private securityService: SecurityService,
@@ -19,8 +18,8 @@ export class LoginLayoutGuard implements CanActivate {
     const isAuthorized = await this.securityService.isAuthorized();
     console.log('is authorized: ', isAuthorized);
 
-    if (isAuthorized) {
-      this.router.navigate([ '/client/tasks' ]);
+    if (!isAuthorized) {
+      this.router.navigate([ '/client/login' ]);
 
       return false;
     }

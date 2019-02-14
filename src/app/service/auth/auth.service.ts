@@ -1,40 +1,30 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { AuthConfigConsts } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/toPromise';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../../model/auth.model';
-import { BaseHttpService } from '../common/base-http.service';
-
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class AuthService extends BaseHttpService {
+export class AuthService {
   readonly url = environment.serverUrl + '/auth';
   readonly loginUrl = this.url + '/login';
+  readonly logoutUrl = this.url + '/logout';
 
   constructor(
     private router: Router,
-    http: HttpClient
+    private http: HttpClient
   ) {
-    super(http);
   }
 
-  login(loginRequest: LoginRequest) {
-    return this.post(this.loginUrl, loginRequest);
+  login(loginRequest: LoginRequest): Observable<any> {
+    return this.http.post(this.loginUrl, loginRequest);
   }
 
-  logout() {
-    localStorage.removeItem(AuthConfigConsts.DEFAULT_TOKEN_NAME);
-    localStorage.removeItem('user');
-    this.router.navigate([ '/client/login' ]);
+  logout(): Observable<any> {
+    return this.http.get(this.logoutUrl);
   }
-
-  getMe() {
-
-    // return this.http.get(`${environment.serverUrl}auth/me`);
-  }
-
 }

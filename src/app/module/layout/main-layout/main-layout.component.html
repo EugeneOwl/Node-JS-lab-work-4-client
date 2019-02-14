@@ -2,5 +2,6 @@
   <h1>Main layout</h1>
   <button mat-button mat-flat-button [routerLink]="['list']">Tasks</button>
   <button mat-button mat-flat-button [routerLink]="['add']">Add TaskModel</button>
+  <button mat-button (click)="logout()">Logout</button>
 </div>
 <router-outlet></router-outlet>

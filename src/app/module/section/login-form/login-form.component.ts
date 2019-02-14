@@ -26,6 +26,7 @@ export class LoginFormComponent {
     this.authService.login(this.loginRequest).subscribe(
       success => {
         console.log(success);
+        this.router.navigate([ '/client/tasks' ]);
       },
       error => {
         console.error(error);
@@ -39,15 +40,5 @@ export class LoginFormComponent {
       username: this.model.username,
       password: this.model.password
     };
-  }
-
-  private setErrorMessage(error) {
-    this.errorMessage = `${error.status} error occurred.`;
-    if (error.status === '401') {
-      this.errorMessage += ' Bad credentials.';
-    }
-    if (error.status === '0') {
-      this.errorMessage += ' Server is not running.';
-    }
   }
 }

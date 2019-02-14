@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material';
 import { LoginLayoutComponent } from './login-layout.component';
 import { LoginLayoutRoutingModule } from './login-layout.routing.module';

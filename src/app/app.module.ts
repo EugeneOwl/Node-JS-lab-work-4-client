@@ -4,11 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskService } from './service/task.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SecurityService } from './service/auth/security.service';
 import { AuthService } from './service/auth/auth.service';
-import { BaseHttpService } from './service/common/base-http.service';
+import { HttpCredentialsInterceptorService } from './service/auth/http-credentials-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,11 @@ import { BaseHttpService } from './service/common/base-http.service';
     BrowserAnimationsModule
   ],
   providers: [
-    BaseHttpService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpCredentialsInterceptorService ,
+      multi: true
+    },
     TaskService,
     AuthService,
     SecurityService
