@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SecurityService } from './service/auth/security.service';
 import { AuthService } from './service/auth/auth.service';
 import { HttpCredentialsInterceptorService } from './service/auth/http-credentials-interceptor.service';
+import { SocketService } from './service/common/socket.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpCredentialsInterceptorService } from './service/auth/http-credentia
     },
     TaskService,
     AuthService,
-    SecurityService
+    SecurityService,
+    SocketService
   ],
   bootstrap: [ AppComponent ]
 })

@@ -1,4 +1,8 @@
+const port = 'http://127.0.0.1:8000';
+const url = port + '/node';
+
 export const environment = {
   production: false,
-  serverUrl: 'http://127.0.0.1:8000/node'
+  serverPort: port,
+  serverUrl: url,
 };

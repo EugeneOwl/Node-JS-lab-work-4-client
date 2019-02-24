@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskStatusModel } from '../../../../model/task-status.model';
 import { TaskService } from '../../../../service/task.service';
+import { TaskModel } from '../../../../model/task.model';
+import { FileModel } from '../../../../model/file.model';
 
 @Component({
   selector: 'app-task-edit',
@@ -15,6 +17,7 @@ export class TaskEditComponent implements OnInit {
   nameFormControl: FormControl;
   statusFormControl: FormControl;
   file: File;
+  fileModel: FileModel;
 
   taskEditForm: FormGroup;
 
@@ -27,23 +30,15 @@ export class TaskEditComponent implements OnInit {
 
   onFileSelect(event: any): void {
     this.file = event.target.files[ 0 ] as File;
+    if (this.file) {
+      this.onloadFile();
+    }
   }
 
   onSubmit(): void {
     if (this.taskEditForm.valid) {
-      const formData = new FormData();
-      formData.append('name', this.nameFormControl.value);
-      formData.append('status', this.statusFormControl.value);
-      formData.append('file', this.file);
-
-      this.taskService.add(formData).subscribe(
-        success => {
-          console.log(success);
-        },
-        error => {
-          console.error(error);
-        }
-      );
+      this.taskService.add(this.buildCreateRequest());
+      alert('Task create request sent.');
     }
   }
 
@@ -57,4 +52,27 @@ export class TaskEditComponent implements OnInit {
     });
   }
 
+  private buildCreateRequest(): TaskModel {
+    return {
+      name: this.nameFormControl.value,
+      status: this.statusFormControl.value,
+      file: this.fileModel
+    };
+  }
+
+  private onloadFile() {
+    const fileReader = new FileReader();
+    const slice = this.file.slice(0, 100000);
+
+    fileReader.readAsArrayBuffer(slice);
+    fileReader.onload = (evt) => {
+      const arrayBuffer = fileReader.result;
+      this.fileModel = {
+        name: this.file.name,
+        type: this.file.type,
+        size: this.file.size,
+        data: arrayBuffer
+      };
+    };
+  }
 }

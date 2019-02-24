@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
+import { SocketService } from '../common/socket.service';
 
 @Injectable()
 export class SecurityService {
-  readonly url = environment.serverUrl + '/auth';
+  static readonly TOKEN_KEY = 'token';
+
+  readonly url = '/auth';
   readonly isAuthorizedUrl = this.url + '/is-authorized';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private socketService: SocketService
+  ) {
   }
 
-  async isAuthorized() {
-    const response = await this.http.get(this.isAuthorizedUrl)
-      .toPromise();
-    return response;
+  isAuthorized() {
+    this.socketService.socket.emit(this.isAuthorizedUrl, {
+      token: localStorage.getItem(SecurityService.TOKEN_KEY)
+    });
   }
 }

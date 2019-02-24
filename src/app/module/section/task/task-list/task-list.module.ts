@@ -1,8 +1,7 @@
 import { TaskListComponent } from './task-list.component';
 import { NgModule } from '@angular/core';
 import { TaskListRoutingModule } from './task-list-routing.module';
-import { MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
-import { TaskListResolver } from './task-list.resolver';
+import { MatCheckboxModule, MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -11,16 +10,16 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     TaskListRoutingModule,
+
     MatTableModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   exports: [
     TaskListComponent
-  ],
-  providers: [
-    TaskListResolver
   ]
 })
 export class TaskListModule {

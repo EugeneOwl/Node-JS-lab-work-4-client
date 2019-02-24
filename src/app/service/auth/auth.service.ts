@@ -1,30 +1,29 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/toPromise';
-import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../../model/auth.model';
-import { Observable } from 'rxjs';
+import { SocketService } from '../common/socket.service';
+import { SecurityService } from './security.service';
 
 @Injectable()
 export class AuthService {
-  readonly url = environment.serverUrl + '/auth';
+  readonly url = '/auth';
   readonly loginUrl = this.url + '/login';
-  readonly logoutUrl = this.url + '/logout';
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private socketService: SocketService
   ) {
   }
 
-  login(loginRequest: LoginRequest): Observable<any> {
-    return this.http.post(this.loginUrl, loginRequest);
+  login(loginRequest: LoginRequest) {
+    this.socketService.socket.emit(this.loginUrl, loginRequest);
   }
 
-  logout(): Observable<any> {
-    return this.http.get(this.logoutUrl);
+  logout() {
+    localStorage.setItem(SecurityService.TOKEN_KEY, '');
+    this.router.navigate([ '/client/login' ]);
   }
 }
